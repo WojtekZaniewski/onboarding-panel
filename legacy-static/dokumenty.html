@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dokumenty · Panel klienta · BeautyRise</title>
+  <meta name="theme-color" content="#000000">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <span class="navbar__brand-mark">BR</span>
+      <span class="navbar__brand-text">BeautyRise</span>
+    </a>
+    <div class="navbar__links">
+      <a href="index.html" class="navbar__link">Pulpit</a>
+      <a href="dokumenty.html" class="navbar__link navbar__link--active">Dokumenty</a>
+      <a href="uslugi.html" class="navbar__link">Usługi</a>
+      <a href="kontakt.html" class="navbar__link">Kontakt</a>
+    </div>
+    <div class="navbar__user">
+      <span class="navbar__user-name">Anna K.</span>
+      <button class="navbar__user-avatar" aria-label="Konto">AK</button>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="page-hero__eyebrow">Panel klienta · <span>Dokumenty</span></div>
+    <h1 class="page-hero__title">Twoje dokumenty. <em class="serif">Jedno miejsce.</em></h1>
+    <p class="page-hero__sub">Umowa, faktury, załączniki, regulaminy. Nie szukasz. Nie pytasz. Klikasz i pobierasz.</p>
+  </header>
+
+  <section class="sec">
+    <div class="sec__inner">
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" data-cat="all">Wszystkie</button>
+        <button class="tab" data-cat="umowy">Umowy</button>
+        <button class="tab" data-cat="brief">Briefy</button>
+        <button class="tab" data-cat="rodo">RODO &amp; regulaminy</button>
+        <button class="tab" data-cat="faktury">Faktury</button>
+      </div>
+
+      <ul class="docs">
+        <li class="doc" data-cat="umowy">
+          <span class="doc__icon">📄</span>
+          <div class="doc__info">
+            <div class="doc__name">Umowa o współpracę</div>
+            <div class="doc__meta">PDF · 2,1 MB · podpisana 14.05.2026</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+        <li class="doc" data-cat="umowy">
+          <span class="doc__icon">📄</span>
+          <div class="doc__info">
+            <div class="doc__name">Aneks #1: zakres działań SoMe</div>
+            <div class="doc__meta">PDF · 410 KB · podpisany 15.05.2026</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+        <li class="doc" data-cat="brief">
+          <span class="doc__icon">📝</span>
+          <div class="doc__info">
+            <div class="doc__name">Brief strategiczny</div>
+            <div class="doc__meta">PDF · 840 KB · wypełniony 15.05.2026</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+        <li class="doc" data-cat="brief">
+          <span class="doc__icon">📝</span>
+          <div class="doc__info">
+            <div class="doc__name">Brief kreatywny: pierwsza kampania</div>
+            <div class="doc__meta">PDF · 620 KB · wersja robocza</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+        <li class="doc" data-cat="rodo">
+          <span class="doc__icon">🛡️</span>
+          <div class="doc__info">
+            <div class="doc__name">Polityka prywatności salonu</div>
+            <div class="doc__meta">PDF · 320 KB · zaktualizowana 16.05.2026</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+        <li class="doc" data-cat="rodo">
+          <span class="doc__icon">🛡️</span>
+          <div class="doc__info">
+            <div class="doc__name">Regulamin świadczenia usług</div>
+            <div class="doc__meta">PDF · 280 KB · wersja 1.2</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+        <li class="doc" data-cat="rodo">
+          <span class="doc__icon">🛡️</span>
+          <div class="doc__info">
+            <div class="doc__name">Klauzula RODO: formularz kontaktowy</div>
+            <div class="doc__meta">PDF · 120 KB · wersja 2026</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+        <li class="doc" data-cat="faktury">
+          <span class="doc__icon">💳</span>
+          <div class="doc__info">
+            <div class="doc__name">Faktura FV/2026/05/0142</div>
+            <div class="doc__meta">PDF · 110 KB · 15.05.2026 · opłacona</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+      </ul>
+
+      <p class="section-closing">
+        Część właścicielek salonów traci godziny na szukanie papierów w skrzynce.<br><em class="serif">Ty już nie.</em>
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__mark">BR</span>
+        BeautyRise · panel klienta
+      </div>
+      <p class="footer__quote">
+        <em class="serif">„Reszta jest w dokumentach, w panelu."</em>
+      </p>
+      <div class="footer__links">
+        <a href="kontakt.html">Pomoc</a>
+        <a href="#">Regulamin</a>
+        <a href="#">Prywatność</a>
+        <a href="#" class="footer__logout">Wyloguj</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // Filtr kategorii dokumentów
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        const cat = tab.dataset.cat;
+        document.querySelectorAll('.doc').forEach(doc => {
+          doc.style.display = (cat === 'all' || doc.dataset.cat === cat) ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

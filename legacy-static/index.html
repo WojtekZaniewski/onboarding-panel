@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel klienta · BeautyRise</title>
+  <meta name="description" content="Twój panel klienta BeautyRise. Wszystko, co Twoje. Jest tu. Nie w mailu. Nie w głowie. Tu.">
+  <meta name="theme-color" content="#000000">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar__brand">
+      <span class="navbar__brand-mark">BR</span>
+      <span class="navbar__brand-text">BeautyRise</span>
+    </a>
+    <div class="navbar__links">
+      <a href="index.html" class="navbar__link navbar__link--active">Pulpit</a>
+      <a href="dokumenty.html" class="navbar__link">Dokumenty</a>
+      <a href="uslugi.html" class="navbar__link">Usługi</a>
+      <a href="kontakt.html" class="navbar__link">Kontakt</a>
+    </div>
+    <div class="navbar__user">
+      <span class="navbar__user-name">Anna K.</span>
+      <button class="navbar__user-avatar" aria-label="Konto">AK</button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="hero">
+    <div class="hero__eyebrow">Panel klienta · <span>Salon Wenus</span></div>
+    <h1 class="hero__heading" data-scramble='[{"text":"Witaj z powrotem, ","italic":false},{"text":"Anno.","italic":true}]'>
+      Witaj z powrotem, <em class="serif">Anno.</em>
+    </h1>
+    <p class="hero__sub">
+      Wszystko, co Twoje. Jest tu.
+    </p>
+    <p class="hero__micro">
+      Nie w mailu. Nie w głowie. <strong>Tu.</strong>
+    </p>
+
+    <div class="status-pills">
+      <div class="status-pill status-pill--ok">
+        <span class="status-pill__dot"></span>
+        Sprawa aktywna
+      </div>
+      <div class="status-pill">
+        <span class="status-pill__icon">⚙️</span>
+        9 usług w toku
+      </div>
+      <div class="status-pill">
+        <span class="status-pill__icon">📄</span>
+        Najnowszy raport: za 18 dni
+      </div>
+      <div class="status-pill status-pill--accent">
+        <span class="status-pill__icon">🔔</span>
+        3 nowe powiadomienia
+      </div>
+    </div>
+  </header>
+
+  <!-- ── SEKCJA 1: DOKUMENTY ── -->
+  <section class="sec sec--dark">
+    <div class="sec__inner">
+      <div class="sec__head sec__head--row">
+        <div>
+          <span class="sec__num">01</span>
+          <h2 class="sec__title">Twoje dokumenty. <em class="serif">Jedno miejsce.</em></h2>
+          <p class="sec__sub">Umowa, faktury, załączniki, regulaminy. Nie szukasz. Nie pytasz. Klikasz i pobierasz.</p>
+        </div>
+        <a href="dokumenty.html" class="btn btn--ghost btn--small">Wszystkie dokumenty</a>
+      </div>
+
+      <ul class="docs">
+        <li class="doc">
+          <span class="doc__icon">📄</span>
+          <div class="doc__info">
+            <div class="doc__name">Umowa o współpracę</div>
+            <div class="doc__meta">PDF · 2,1 MB · podpisana 14.05.2026</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+        <li class="doc">
+          <span class="doc__icon">💳</span>
+          <div class="doc__info">
+            <div class="doc__name">Faktura FV/2026/05/0142</div>
+            <div class="doc__meta">PDF · 110 KB · 15.05.2026 · opłacona</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+        <li class="doc">
+          <span class="doc__icon">📝</span>
+          <div class="doc__info">
+            <div class="doc__name">Brief strategiczny</div>
+            <div class="doc__meta">PDF · 840 KB · wypełniony 15.05.2026</div>
+          </div>
+          <a href="#" class="doc__action">Pobierz</a>
+        </li>
+      </ul>
+
+      <p class="section-closing">
+        Część właścicielek salonów traci godziny na szukanie papierów w skrzynce.<br><em class="serif">Ty już nie.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SEKCJA 2: STATUS USŁUG ── -->
+  <section class="sec">
+    <div class="sec__inner sec__inner--wide">
+      <div class="sec__head sec__head--row">
+        <div>
+          <span class="sec__num">02</span>
+          <h2 class="sec__title">Wiesz co się dzieje. <em class="serif">W czasie rzeczywistym.</em></h2>
+          <p class="sec__sub">Kampanie reklamowe, content, automatyzacje, dofinansowania, ochrona prawna. Każda usługa ma status.</p>
+        </div>
+        <a href="uslugi.html" class="btn btn--ghost btn--small">Wszystkie usługi</a>
+      </div>
+
+      <div class="services">
+        <article class="service">
+          <div class="service__top">
+            <span class="service__icon">🎯</span>
+            <span class="service__status service__status--ok">W robocie</span>
+          </div>
+          <h3 class="service__title">Kampanie reklamowe</h3>
+          <p class="service__body">Start za 4 dni. Kreacje i grupa docelowa skonfigurowane.</p>
+        </article>
+
+        <article class="service">
+          <div class="service__top">
+            <span class="service__icon">📱</span>
+            <span class="service__status service__status--warn">Czeka na Ciebie</span>
+          </div>
+          <h3 class="service__title">Content i social media</h3>
+          <p class="service__body">Plan postów na pierwszy miesiąc gotowy. Zatwierdź jednym kliknięciem.</p>
+        </article>
+
+        <article class="service">
+          <div class="service__top">
+            <span class="service__icon">🤖</span>
+            <span class="service__status service__status--ok">W robocie</span>
+          </div>
+          <h3 class="service__title">Automatyzacje CRM</h3>
+          <p class="service__body">Przypomnienia SMS, follow-upy, win-back. Wdrażane etapami.</p>
+        </article>
+
+        <article class="service">
+          <div class="service__top">
+            <span class="service__icon">💰</span>
+            <span class="service__status service__status--done">Dostarczone</span>
+          </div>
+          <h3 class="service__title">Dofinansowania</h3>
+          <p class="service__body">Analiza zakończona. Aplikujesz na 2 programy. Dokumenty w panelu.</p>
+        </article>
+
+        <article class="service">
+          <div class="service__top">
+            <span class="service__icon">⚖️</span>
+            <span class="service__status service__status--done">Dostarczone</span>
+          </div>
+          <h3 class="service__title">Ochrona prawna</h3>
+          <p class="service__body">Polityki, regulaminy, RODO. Wdrożone i zgodne.</p>
+        </article>
+
+        <article class="service">
+          <div class="service__top">
+            <span class="service__icon">📊</span>
+            <span class="service__status service__status--ok">W robocie</span>
+          </div>
+          <h3 class="service__title">Raporty &amp; analityka</h3>
+          <p class="service__body">Pierwszy raport po 30 dniach. Liczby, wnioski, plan.</p>
+        </article>
+      </div>
+
+      <p class="section-closing">
+        Zero domysłów. Zero „a co tam słychać u was."<br><em class="serif">Wchodzisz. Widzisz. Idziesz dalej.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SEKCJA 3: OPIEKUNOWIE ── -->
+  <section class="sec sec--dark" id="kontakt">
+    <div class="sec__inner">
+      <div class="sec__head">
+        <span class="sec__num">03</span>
+        <h2 class="sec__title">Jakub Eliasik. Wojciech Zaniewski.</h2>
+        <p class="sec__sub">Twoi opiekunowie strategiczni. Telefon. Mail. WhatsApp. Jeden klik, kontakt.</p>
+      </div>
+
+      <div class="care-cards">
+        <div class="care-card">
+          <div class="care-card__avatar">JE</div>
+          <div class="care-card__info">
+            <div class="care-card__name">Jakub Eliasik</div>
+            <div class="care-card__role">Opiekun strategiczny · BeautyRise</div>
+            <div class="care-card__contact">
+              <a href="tel:+48534187109">+48 534 187 109</a>
+              <a href="mailto:jakub@beautyrise.pl">jakub@beautyrise.pl</a>
+              <a href="https://wa.me/48534187109" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+            <div class="care-card__actions">
+              <a href="tel:+48534187109" class="btn btn--primary btn--small">Zadzwoń</a>
+              <a href="https://wa.me/48534187109" target="_blank" rel="noopener" class="btn btn--ghost btn--small">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="care-card">
+          <div class="care-card__avatar">WZ</div>
+          <div class="care-card__info">
+            <div class="care-card__name">Wojciech Zaniewski</div>
+            <div class="care-card__role">Opiekun strategiczny · BeautyRise</div>
+            <div class="care-card__contact">
+              <a href="tel:+48510830344">+48 510 830 344</a>
+              <a href="mailto:wojtek@beautyrise.pl">wojtek@beautyrise.pl</a>
+              <a href="https://wa.me/48510830344" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+            <div class="care-card__actions">
+              <a href="tel:+48510830344" class="btn btn--primary btn--small">Zadzwoń</a>
+              <a href="https://wa.me/48510830344" target="_blank" rel="noopener" class="btn btn--ghost btn--small">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-closing">
+        Nie „skontaktuj się z biurem." Nie „nasz zespół odpisze w ciągu 48h."<br><em class="serif">Konkretna osoba. Teraz.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SEKCJA 4: RAPORTY MIESIĘCZNE ── -->
+  <section class="sec">
+    <div class="sec__inner">
+      <div class="sec__head">
+        <span class="sec__num">04</span>
+        <h2 class="sec__title">Co miesiąc. <em class="serif">liczby, wnioski, plan.</em></h2>
+        <p class="sec__sub">Każdy miesiąc współpracy zarchiwizowany w PDF. Co zrobiliśmy. Co zadziałało. Co robimy dalej.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card__left">
+          <div class="feature-card__label">Najbliższy raport</div>
+          <div class="feature-card__title">Maj 2026</div>
+          <div class="feature-card__meta">Trafia do panelu 30.05.2026 · za 18 dni</div>
+        </div>
+        <div class="feature-card__right">
+          <div class="feature-stats">
+            <div class="feature-stat">
+              <div class="feature-stat__num">0</div>
+              <div class="feature-stat__label">raportów w archiwum</div>
+            </div>
+            <div class="feature-stat">
+              <div class="feature-stat__num">PDF</div>
+              <div class="feature-stat__label">format · ~12 stron</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-closing">
+        Większość właścicielek salonów nie wie, co przyniosło im klientki w zeszłym miesiącu.<br><em class="serif">Ty wiesz.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SEKCJA 5: PLAN 30/90 ── -->
+  <section class="sec sec--dark">
+    <div class="sec__inner">
+      <div class="sec__head">
+        <span class="sec__num">05</span>
+        <h2 class="sec__title">Tu jest <em class="serif">Twoja mapa.</em></h2>
+        <p class="sec__sub">Plan ustalony na kick-offie. Co robimy, w jakiej kolejności, kiedy spodziewać się efektów. Bez mgły. Bez „zobaczymy."</p>
+      </div>
+
+      <div class="steps">
+        <div class="step step--done">
+          <div class="step__num">D1</div>
+          <div class="step__content">
+            <div class="step__meta">
+              <span class="step__title">Fundament. Pierwsze 14 dni</span>
+              <span class="step__badge step__badge--done">W toku</span>
+            </div>
+            <p class="step__body">Audyt salonu online, ustawienie CRM, polityki i zgodność, dostępy. Zamykamy bałagan.</p>
+          </div>
+        </div>
+
+        <div class="step step--active">
+          <div class="step__num">D30</div>
+          <div class="step__content">
+            <div class="step__meta">
+              <span class="step__title">Pierwszy miesiąc. Start kampanii</span>
+              <span class="step__badge step__badge--active">Aktywny</span>
+            </div>
+            <p class="step__body">Reklamy ruszają. Content idzie regularnie. Pierwszy raport zamyka miesiąc liczbami.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__num">D60</div>
+          <div class="step__content">
+            <div class="step__meta">
+              <span class="step__title">Drugi miesiąc. Optymalizacja</span>
+              <span class="step__badge">Wkrótce</span>
+            </div>
+            <p class="step__body">Co działa. Skalujemy. Co nie. Wymieniamy. Decyzje na danych, nie na intuicji.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__num">D90</div>
+          <div class="step__content">
+            <div class="step__meta">
+              <span class="step__title">Trzeci miesiąc. Skala</span>
+              <span class="step__badge">Wkrótce</span>
+            </div>
+            <p class="step__body">Pełen system działa. Klientki rezerwują same. Wiesz dokładnie, ile kosztuje pozyskanie jednej.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-closing">
+        Wiesz co jest następne.<br><em class="serif">Wiesz kiedy.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SEKCJA 6: KALENDARZ CONTENTU ── -->
+  <section class="sec">
+    <div class="sec__inner sec__inner--wide">
+      <div class="sec__head">
+        <span class="sec__num">06</span>
+        <h2 class="sec__title">Co się publikuje. <em class="serif">Kiedy. Gdzie.</em></h2>
+        <p class="sec__sub">Posty, reklamy, stories, reels. Zaplanowane, opisane, gotowe. Możesz zajrzeć i sprawdzić kreację przed publikacją. Możesz też nie.</p>
+      </div>
+
+      <ul class="calendar">
+        <li class="cal-item">
+          <div class="cal-item__date">
+            <span class="cal-item__day">17</span>
+            <span class="cal-item__month">maj</span>
+          </div>
+          <div class="cal-item__info">
+            <div class="cal-item__title">Reel: „3 zabiegi, które pokocha każda klientka"</div>
+            <div class="cal-item__meta">Instagram · 11:00 · gotowy do publikacji</div>
+          </div>
+          <span class="cal-item__channel">📱 IG</span>
+        </li>
+        <li class="cal-item">
+          <div class="cal-item__date">
+            <span class="cal-item__day">18</span>
+            <span class="cal-item__month">maj</span>
+          </div>
+          <div class="cal-item__info">
+            <div class="cal-item__title">Kampania Meta: pakiet wiosenny</div>
+            <div class="cal-item__meta">Facebook + Instagram · start 06:00 · 7 dni</div>
+          </div>
+          <span class="cal-item__channel">🎯 Ads</span>
+        </li>
+        <li class="cal-item">
+          <div class="cal-item__date">
+            <span class="cal-item__day">20</span>
+            <span class="cal-item__month">maj</span>
+          </div>
+          <div class="cal-item__info">
+            <div class="cal-item__title">Story: pokaz zaplecza salonu</div>
+            <div class="cal-item__meta">Instagram Stories · 14:30 · 4 ujęcia</div>
+          </div>
+          <span class="cal-item__channel">📱 IG</span>
+        </li>
+        <li class="cal-item">
+          <div class="cal-item__date">
+            <span class="cal-item__day">22</span>
+            <span class="cal-item__month">maj</span>
+          </div>
+          <div class="cal-item__info">
+            <div class="cal-item__title">Post: opinia klientki + zdjęcie efektu</div>
+            <div class="cal-item__meta">Facebook + Instagram · 18:00 · czeka na akceptację</div>
+          </div>
+          <span class="cal-item__channel">📘 FB</span>
+        </li>
+      </ul>
+
+      <p class="section-closing">
+        Twój salon wygląda profesjonalnie nawet kiedy <em class="serif">śpisz.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SEKCJA 7: BRAND ASSETS ── -->
+  <section class="sec sec--dark">
+    <div class="sec__inner sec__inner--wide">
+      <div class="sec__head">
+        <span class="sec__num">07</span>
+        <h2 class="sec__title">Twoja marka. <em class="serif">pod ręką.</em></h2>
+        <p class="sec__sub">Logo, paleta kolorów, zdjęcia salonu, materiały marki. Do pobrania. Zawsze aktualne.</p>
+      </div>
+
+      <div class="assets">
+        <a href="#" class="asset">
+          <div class="asset__icon">🅻</div>
+          <div class="asset__title">Logo</div>
+          <div class="asset__meta">SVG, PNG, ciemne i jasne · 6 plików</div>
+        </a>
+        <a href="#" class="asset">
+          <div class="asset__icon" style="background: linear-gradient(135deg, #ff751f, #c9a87a, #2a2a2a);"></div>
+          <div class="asset__title">Paleta kolorów</div>
+          <div class="asset__meta">HEX, RGB, CMYK · 5 kolorów marki</div>
+        </a>
+        <a href="#" class="asset">
+          <div class="asset__icon">📸</div>
+          <div class="asset__title">Zdjęcia salonu</div>
+          <div class="asset__meta">48 plików RAW · sesja 04.06.2026</div>
+        </a>
+        <a href="#" class="asset">
+          <div class="asset__icon">🎨</div>
+          <div class="asset__title">Szablony postów</div>
+          <div class="asset__meta">Canva · 12 szablonów IG &amp; FB</div>
+        </a>
+      </div>
+
+      <p class="section-closing">
+        Marka spójna. <em class="serif">Spójna marka wygrywa.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SEKCJA 8: POWIADOMIENIA ── -->
+  <section class="sec">
+    <div class="sec__inner">
+      <div class="sec__head">
+        <span class="sec__num">08</span>
+        <h2 class="sec__title">Nic Cię <em class="serif">nie ominie.</em></h2>
+        <p class="sec__sub">Nowy raport, nowa faktura, nowy materiał do zatwierdzenia. Powiadomienie. System pracuje. Ty decydujesz kiedy zajrzeć.</p>
+      </div>
+
+      <ul class="notifs">
+        <li class="notif notif--new">
+          <span class="notif__dot"></span>
+          <div class="notif__info">
+            <div class="notif__title">Plan postów na maj, czeka na Twoją akceptację</div>
+            <div class="notif__meta">2 godziny temu · Content</div>
+          </div>
+          <a href="#" class="notif__action">Otwórz</a>
+        </li>
+        <li class="notif notif--new">
+          <span class="notif__dot"></span>
+          <div class="notif__info">
+            <div class="notif__title">Faktura FV/2026/05/0142 została opłacona</div>
+            <div class="notif__meta">wczoraj, 14:22 · Finanse</div>
+          </div>
+          <a href="#" class="notif__action">Otwórz</a>
+        </li>
+        <li class="notif notif--new">
+          <span class="notif__dot"></span>
+          <div class="notif__info">
+            <div class="notif__title">Wojtek odpisał na Twoją wiadomość</div>
+            <div class="notif__meta">wczoraj, 11:08 · Opiekun</div>
+          </div>
+          <a href="#" class="notif__action">Otwórz</a>
+        </li>
+        <li class="notif">
+          <div class="notif__info">
+            <div class="notif__title">CRM skonfigurowany i aktywny</div>
+            <div class="notif__meta">3 dni temu · Usługi</div>
+          </div>
+          <a href="#" class="notif__action">Otwórz</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── ZAMKNIĘCIE ── -->
+  <section class="closing-sec">
+    <div class="closing-sec__inner">
+      <p class="closing-sec__lead">
+        Inne salony walczą z chaosem.<br>
+        Ty masz <em class="serif">kogoś, kto go ogarnia.</em>
+      </p>
+      <p class="closing-sec__body">
+        To nie jest obietnica. To jest to, co właśnie kupiłaś.<br>
+        I to miejsce jest na to dowodem.
+      </p>
+      <p class="closing-sec__tag">
+        Ty prowadzisz salon. <em class="serif">My prowadzimy resztę.</em>
+      </p>
+      <p class="closing-sec__cta-row">
+        Pytania? Twoi opiekunowie są jednym kliknięciem stąd.
+      </p>
+      <div class="closing-sec__buttons">
+        <a href="tel:+48534187109" class="btn btn--primary">Zadzwoń do Kuby</a>
+        <a href="tel:+48510830344" class="btn btn--primary">Zadzwoń do Wojtka</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__mark">BR</span>
+        BeautyRise · panel klienta
+      </div>
+      <div class="footer__links">
+        <a href="kontakt.html">Pomoc</a>
+        <a href="#">Regulamin</a>
+        <a href="#">Prywatność</a>
+        <a href="#" class="footer__logout">Wyloguj</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
