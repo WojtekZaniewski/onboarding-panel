@@ -23,8 +23,8 @@ export default async function UslugiPage() {
       <PageHero
         eyebrowLabel="Panel klienta"
         eyebrowAccent="Usługi"
-        title={<>Wiesz co się dzieje. <Serif>W czasie rzeczywistym.</Serif></>}
-        sub="Kampanie, content, automatyzacje, dofinansowania, ochrona prawna. Każda usługa ma status. Zero domysłów."
+        title="Usługi"
+        sub="Status każdej usługi na żywo."
       />
 
       <Sec wide>
@@ -44,9 +44,8 @@ export default async function UslugiPage() {
 
       <Sec
         dark
-        title={<>Czego się <Serif>NIE spodziewaj.</Serif></>}
-        sub="Wolimy powiedzieć Ci to dzisiaj, niż żebyś rozczarowała się za miesiąc."
-        closing={<>To nie są ograniczenia.<br /><Serif>To są zasady, dzięki którym to działa.</Serif></>}
+        title="Zasady"
+        sub="Czego nie obiecujemy."
       >
         <div className="principles">
           <Principle num="01" title="Nie spodziewaj się klientek w pierwszym tygodniu." paragraphs={[

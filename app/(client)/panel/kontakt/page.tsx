@@ -37,13 +37,11 @@ export default async function KontaktPage() {
       <PageHero
         eyebrowLabel="Panel klienta"
         eyebrowAccent="Kontakt"
-        title={<>{sortedCaretakers.map((c) => c.full_name).join(". ")}.</>}
-        sub="Twoi opiekunowie strategiczni. Telefon. Mail. WhatsApp. Jeden klik, kontakt."
+        title="Twoi opiekunowie"
+        sub="Telefon · Mail · WhatsApp"
       />
 
-      <Sec
-        closing={<>Nie musisz wiedzieć, kto u nas robi co.<br /><Serif>Wystarczy, że wiesz, do kogo dzwonisz.</Serif></>}
-      >
+      <Sec>
         <div className="care-cards">
           {sortedCaretakers.map((c) => (
             <CareCard
@@ -77,9 +75,8 @@ export default async function KontaktPage() {
 
       <Sec
         dark
-        title={<>Trzy rzeczy. <Serif>Tylko tyle.</Serif></>}
-        sub={'Bez formularzy. Bez ankiet na 40 pytań. Bez „wypełnij brief i odeślij do końca tygodnia".'}
-        closing={<>To wszystko.<br /><Serif>Resztę zbieramy sami.</Serif></>}
+        title="Czego potrzebujemy od Ciebie"
+        sub="Trzy rzeczy."
       >
         <div className="steps">
           <Step code="01" title="Dostępy" body="Login do Booksy, Instagrama, Facebooka, Google. Jeśli nie pamiętasz haseł, opiekun pokaże, gdzie kliknąć. Krok po kroku, na rozmowie." />
@@ -89,8 +86,8 @@ export default async function KontaktPage() {
       </Sec>
 
       <Sec
-        title={<>BeautyRise: <Serif>firma.</Serif></>}
-        sub="Sprawy ogólne i administracyjne. Dla wszystkiego innego, dzwoń do opiekunów."
+        title="BeautyRise"
+        sub="Kontakt ogólny."
       >
         <div className="brand-contact">
           {g["brand.email"] && (

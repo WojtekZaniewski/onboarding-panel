@@ -1,22 +1,10 @@
 import { redirect } from "next/navigation";
-import { HeroScramble } from "@/components/ui/HeroScramble";
+import Link from "next/link";
 import { StatusPill } from "@/components/ui/StatusPill";
-import { Sec } from "@/components/ui/Sec";
-import { Serif } from "@/components/ui/Serif";
 import { Btn } from "@/components/ui/Btn";
-import { ClosingSec } from "@/components/ui/ClosingSec";
-import { ServiceCard, type ServiceStatus } from "@/components/client/ServiceCard";
-import { DocRow } from "@/components/client/DocRow";
-import { NotifRow } from "@/components/client/NotifRow";
-import { CalItem } from "@/components/client/CalItem";
-import { CareCard } from "@/components/client/CareCard";
-import { Step, type StepStatus } from "@/components/client/Step";
-import { Asset } from "@/components/client/Asset";
-import { FeatureCard } from "@/components/client/FeatureCard";
 import { getCurrentClientForUser, getFullPanelData } from "@/lib/db/panel";
 
 const PL_MONTHS = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"];
-
 function fmtDate(iso: string): { day: string; month: string } {
   const d = new Date(iso + "T00:00:00");
   return {
@@ -24,13 +12,31 @@ function fmtDate(iso: string): { day: string; month: string } {
     month: PL_MONTHS[d.getMonth()] ?? "",
   };
 }
-
 function daysUntil(iso: string | null): number | null {
   if (!iso) return null;
-  const target = new Date(iso).getTime();
-  const now = Date.now();
-  return Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+  return Math.ceil((new Date(iso).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
 }
+
+const SERVICE_STATUS_LABEL: Record<string, string> = {
+  w_robocie: "W robocie",
+  czeka: "Czeka",
+  dostarczone: "Dostarczone",
+};
+const SERVICE_STATUS_CLASS: Record<string, string> = {
+  w_robocie: "pchip--ok",
+  czeka: "pchip--warn",
+  dostarczone: "pchip--done",
+};
+const PLAN_BADGE_LABEL: Record<string, string> = {
+  done: "Zrobione",
+  active: "W toku",
+  upcoming: "Wkrótce",
+};
+const PLAN_BADGE_CLASS: Record<string, string> = {
+  done: "pchip--done",
+  active: "pchip--ok",
+  upcoming: "pchip--muted",
+};
 
 export default async function PanelHome() {
   const client = await getCurrentClientForUser();
@@ -40,45 +46,25 @@ export default async function PanelHome() {
   if (!data) redirect("/login");
 
   const {
-    statusPills,
-    services,
-    documents,
-    calendar,
-    notifications,
-    reports,
-    assets,
-    plan,
-    caretakers,
-    global,
-    reportEntries,
-    currentWork,
+    statusPills, services, documents, calendar, notifications,
+    reports, assets, plan, caretakers, reportEntries, currentWork,
   } = data;
-
-  const recentDocs = documents.slice(0, 3);
-  const nextReport = reports[0];
-  const reportDays = nextReport ? daysUntil(nextReport.published_at) : null;
 
   const visible = (data.client.visible_sections ?? {}) as Record<string, boolean>;
   const show = (key: string) => visible[key] !== false;
 
-  return (
-    <>
-      <header className="hero">
-        <div className="hero__eyebrow">
-          {data.client.hero_eyebrow} · <span>{data.client.salon_name}</span>
-        </div>
-        <HeroScramble
-          className="hero__heading"
-          segments={[
-            { text: "Witaj z powrotem, " },
-            { text: data.client.display_first_name + ".", italic: true },
-          ]}
-        />
-        <p className="hero__sub">{data.client.hero_sub}</p>
-        <p className="hero__micro">
-          {data.client.hero_micro.split(" Tu.")[0]} <strong>Tu.</strong>
-        </p>
+  const nextReport = reports[0];
+  const reportDays = nextReport ? daysUntil(nextReport.published_at) : null;
+  const newNotifs = notifications.filter((n) => n.is_new);
 
+  return (
+    <main className="panel">
+      {/* Top: greeting + status pills */}
+      <header className="panel-top">
+        <div>
+          <div className="panel-top__eyebrow">{data.client.salon_name}</div>
+          <h1 className="panel-top__title">Cześć {data.client.display_first_name.replace(/\.$/, "")}</h1>
+        </div>
         {statusPills.length > 0 && (
           <div className="status-pills">
             {statusPills.map((p) => (
@@ -95,244 +81,239 @@ export default async function PanelHome() {
         )}
       </header>
 
-      {show("documents") && <Sec
-        dark
-        num="01"
-        title={<>Twoje dokumenty. <Serif>Jedno miejsce.</Serif></>}
-        sub="Umowa, faktury, załączniki, regulaminy. Nie szukasz. Nie pytasz. Klikasz i pobierasz."
-        headRow={<Btn href="/panel/dokumenty" variant="ghost" small>Wszystkie dokumenty</Btn>}
-        closing={<>Część właścicielek salonów traci godziny na szukanie papierów w skrzynce.<br /><Serif>Ty już nie.</Serif></>}
-      >
-        <ul className="docs">
-          {recentDocs.map((d) => (
-            <DocRow key={d.id} icon={d.icon} name={d.name} meta={d.meta ?? ""} />
-          ))}
-        </ul>
-      </Sec>}
+      <div className="panel-grid">
+        {/* Status usług */}
+        {show("services") && (
+          <section className="panel-tile panel-tile--wide">
+            <div className="panel-tile__head">
+              <h2>Usługi</h2>
+              <Link href="/panel/uslugi" className="panel-tile__more">Wszystkie →</Link>
+            </div>
+            <ul className="panel-list">
+              {services.slice(0, 6).map((s) => (
+                <li key={s.id} className="panel-list__row">
+                  <span className="panel-list__icon">{s.icon ?? "•"}</span>
+                  <span className="panel-list__title">{s.title}</span>
+                  <span className={`pchip ${SERVICE_STATUS_CLASS[s.status] ?? "pchip--muted"}`}>
+                    {SERVICE_STATUS_LABEL[s.status] ?? s.status}
+                  </span>
+                </li>
+              ))}
+              {services.length === 0 && <li className="panel-empty">Brak.</li>}
+            </ul>
+          </section>
+        )}
 
-      {show("services") && <Sec
-        wide
-        num="02"
-        title={<>Wiesz co się dzieje. <Serif>W czasie rzeczywistym.</Serif></>}
-        sub="Kampanie reklamowe, content, automatyzacje, dofinansowania, ochrona prawna. Każda usługa ma status."
-        headRow={<Btn href="/panel/uslugi" variant="ghost" small>Wszystkie usługi</Btn>}
-        closing={<>Zero domysłów. Zero „a co tam słychać u was."<br /><Serif>Wchodzisz. Widzisz. Idziesz dalej.</Serif></>}
-      >
-        <div className="services">
-          {services.map((s) => (
-            <ServiceCard
-              key={s.id}
-              icon={s.icon ?? ""}
-              status={(s.status as ServiceStatus) ?? "default"}
-              title={s.title}
-              body={s.body ?? ""}
-              link={s.link_href && s.link_label ? { href: s.link_href, label: s.link_label } : undefined}
-            />
-          ))}
-        </div>
-      </Sec>}
+        {/* Nad czym pracujemy */}
+        {show("current_work") && currentWork.length > 0 && (
+          <section className="panel-tile">
+            <div className="panel-tile__head">
+              <h2>Nad czym pracujemy</h2>
+              <span className="panel-tile__count">{currentWork.length}</span>
+            </div>
+            <ul className="panel-list">
+              {currentWork.slice(0, 5).map((w) => (
+                <li key={w.id} className="panel-list__row panel-list__row--accent">
+                  <span className="panel-list__icon">⚡</span>
+                  <span className="panel-list__title">{w.title}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
-      {show("current_work") && currentWork.length > 0 && <Sec
-        wide
-        num="⚡"
-        title={<>Nad czym <Serif>aktualnie pracujemy.</Serif></>}
-        sub="Live update od Twojego zespołu BeautyRise."
-      >
-        <ul className="current-work-list">
-          {currentWork.map((w) => (
-            <li key={w.id} className="current-work-item">
-              <span className="current-work-item__bullet">⚡</span>
-              <div>
-                <div className="current-work-item__title">{w.title}</div>
-                {w.detail && <div className="current-work-item__detail">{w.detail}</div>}
+        {/* Najbliższy raport */}
+        {show("reports") && (
+          <section className="panel-tile">
+            <div className="panel-tile__head">
+              <h2>Najbliższy raport</h2>
+            </div>
+            {nextReport ? (
+              <div className="panel-bigstat">
+                <div className="panel-bigstat__num">{nextReport.period}</div>
+                <div className="panel-bigstat__meta">
+                  {reportDays !== null && reportDays > 0 && `za ${reportDays} dni`}
+                  {reportDays === 0 && "dziś"}
+                  {(reportDays === null || reportDays < 0) && (nextReport.published_at ?? "—")}
+                </div>
               </div>
-            </li>
-          ))}
-        </ul>
-      </Sec>}
+            ) : (
+              <div className="panel-bigstat">
+                <div className="panel-bigstat__num">—</div>
+                <div className="panel-bigstat__meta">Pierwszy raport po 30 dniach</div>
+              </div>
+            )}
+            <div className="panel-tile__footer">
+              <span className="panel-meta">{reports.length} w archiwum</span>
+            </div>
+          </section>
+        )}
 
-      {show("report_entries") && reportEntries.length > 0 && <Sec
-        dark
-        num="📋"
-        title={<>Raporty <Serif>w skrócie.</Serif></>}
-        sub="Krótkie wpisy zamiast pełnych PDF-ów. Po jednym kliknięciu wiesz, co się działo."
-        closing={<>Każdy miesiąc, jedno zdanie. <Serif>Wystarczy.</Serif></>}
-      >
-        <ul className="report-entries-list">
-          {reportEntries.map((r) => (
-            <li key={r.id} className="report-entry">
-              <div className="report-entry__period">{r.period}</div>
-              <div className="report-entry__content">{r.content}</div>
-            </li>
-          ))}
-        </ul>
-      </Sec>}
+        {/* Plan 30/90 */}
+        {show("plan") && plan.length > 0 && (
+          <section className="panel-tile panel-tile--wide">
+            <div className="panel-tile__head">
+              <h2>Plan 30 / 90</h2>
+            </div>
+            <ul className="panel-list">
+              {plan.map((m) => (
+                <li key={m.id} className="panel-list__row">
+                  <span className="panel-list__code">{m.code}</span>
+                  <span className="panel-list__title">{m.title}</span>
+                  <span className={`pchip ${PLAN_BADGE_CLASS[m.badge_status ?? "upcoming"]}`}>
+                    {PLAN_BADGE_LABEL[m.badge_status ?? "upcoming"]}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
-      {show("opiekunowie") && <Sec
-        dark
-        id="kontakt"
-        num="03"
-        title={<>{caretakers.map((c) => c.full_name).join(". ")}.</>}
-        sub="Twoi opiekunowie strategiczni. Telefon. Mail. WhatsApp. Jeden klik, kontakt."
-        closing={<>Nie „skontaktuj się z biurem." Nie „nasz zespół odpisze w ciągu 48h."<br /><Serif>Konkretna osoba. Teraz.</Serif></>}
-      >
-        <div className="care-cards">
-          {caretakers.map((c) => (
-            <CareCard
-              key={c.id}
-              data={{
-                fullName: c.full_name,
-                initials: c.initials ?? c.full_name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase(),
-                role: "Opiekun strategiczny · BeautyRise",
-                phone: c.phone ?? "",
-                email: c.email ?? "",
-                whatsappUrl: c.whatsapp_url ?? undefined,
-              }}
-            />
-          ))}
-        </div>
-      </Sec>}
+        {/* Dokumenty (najnowsze) */}
+        {show("documents") && (
+          <section className="panel-tile">
+            <div className="panel-tile__head">
+              <h2>Dokumenty</h2>
+              <Link href="/panel/dokumenty" className="panel-tile__more">Wszystkie →</Link>
+            </div>
+            <ul className="panel-list">
+              {documents.slice(0, 4).map((d) => (
+                <li key={d.id} className="panel-list__row">
+                  <span className="panel-list__icon">{d.icon ?? "📄"}</span>
+                  <span className="panel-list__title">{d.name}</span>
+                </li>
+              ))}
+              {documents.length === 0 && <li className="panel-empty">Brak dokumentów.</li>}
+            </ul>
+          </section>
+        )}
 
-      {show("reports") && <Sec
-        num="04"
-        title={<>Co miesiąc: <Serif>liczby, wnioski, plan.</Serif></>}
-        sub="Każdy miesiąc współpracy zarchiwizowany w PDF. Co zrobiliśmy. Co zadziałało. Co robimy dalej."
-        closing={<>Większość właścicielek salonów nie wie, co przyniosło im klientki w zeszłym miesiącu.<br /><Serif>Ty wiesz.</Serif></>}
-      >
-        <FeatureCard
-          label="Najbliższy raport"
-          title={nextReport?.period ?? "Maj 2026"}
-          meta={
-            nextReport?.published_at
-              ? `Trafia do panelu ${nextReport.published_at}${reportDays !== null ? ` · za ${reportDays} dni` : ""}`
-              : "Pierwszy raport po 30 dniach współpracy"
-          }
-          stats={[
-            { num: String(reports.length), label: "raportów w archiwum" },
-            { num: "PDF", label: "format · ~12 stron" },
-          ]}
-        />
-      </Sec>}
+        {/* Powiadomienia */}
+        {show("notifications") && (
+          <section className="panel-tile">
+            <div className="panel-tile__head">
+              <h2>Powiadomienia</h2>
+              {newNotifs.length > 0 && <span className="pchip pchip--accent">{newNotifs.length} nowych</span>}
+            </div>
+            <ul className="panel-list">
+              {notifications.slice(0, 5).map((n) => (
+                <li key={n.id} className="panel-list__row">
+                  {n.is_new && <span className="panel-list__dot" />}
+                  <span className="panel-list__title">{n.title}</span>
+                </li>
+              ))}
+              {notifications.length === 0 && <li className="panel-empty">Brak.</li>}
+            </ul>
+          </section>
+        )}
 
-      {show("plan") && <Sec
-        dark
-        num="05"
-        title={<>Tu jest <Serif>Twoja mapa.</Serif></>}
-        sub={'Plan ustalony na kick-offie. Co robimy, w jakiej kolejności, kiedy spodziewać się efektów. Bez mgły. Bez „zobaczymy."'}
-        closing={<>Wiesz co jest następne.<br /><Serif>Wiesz kiedy.</Serif></>}
-      >
-        <div className="steps">
-          {plan.map((m) => (
-            <Step
-              key={m.id}
-              code={m.code}
-              title={m.title}
-              status={(m.badge_status as StepStatus) ?? "upcoming"}
-              body={m.body ?? ""}
-            />
-          ))}
-        </div>
-      </Sec>}
+        {/* Kalendarz */}
+        {show("calendar") && calendar.length > 0 && (
+          <section className="panel-tile panel-tile--wide">
+            <div className="panel-tile__head">
+              <h2>Kalendarz</h2>
+              <span className="panel-tile__count">{calendar.length}</span>
+            </div>
+            <ul className="panel-list">
+              {calendar.slice(0, 5).map((c) => {
+                const { day, month } = fmtDate(c.publish_date);
+                return (
+                  <li key={c.id} className="panel-list__row">
+                    <span className="panel-list__date">
+                      <span className="panel-list__date-day">{day}</span>
+                      <span className="panel-list__date-month">{month}</span>
+                    </span>
+                    <span className="panel-list__title">{c.title}</span>
+                    {c.channel && <span className="pchip pchip--muted">{c.channel}</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
 
-      {show("calendar") && <Sec
-        wide
-        num="06"
-        title={<>Co się publikuje. <Serif>Kiedy. Gdzie.</Serif></>}
-        sub="Posty, reklamy, stories, reels — zaplanowane, opisane, gotowe. Możesz zajrzeć i sprawdzić kreację przed publikacją. Możesz też nie."
-        closing={<>Twój salon wygląda profesjonalnie nawet kiedy <Serif>śpisz.</Serif></>}
-      >
-        <ul className="calendar">
-          {calendar.map((c) => {
-            const { day, month } = fmtDate(c.publish_date);
-            return (
-              <CalItem
-                key={c.id}
-                day={day}
-                month={month}
-                title={c.title}
-                meta={c.meta ?? ""}
-                channel={c.channel ?? ""}
-              />
-            );
-          })}
-        </ul>
-      </Sec>}
+        {/* Opiekunowie */}
+        {show("opiekunowie") && caretakers.length > 0 && (
+          <section className="panel-tile panel-tile--wide">
+            <div className="panel-tile__head">
+              <h2>Opiekunowie</h2>
+              <Link href="/panel/kontakt" className="panel-tile__more">Kontakt →</Link>
+            </div>
+            <div className="panel-caretakers">
+              {caretakers.map((c) => (
+                <div key={c.id} className="panel-caretaker">
+                  <div className="panel-caretaker__avatar">
+                    {c.initials ?? c.full_name.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase()}
+                  </div>
+                  <div className="panel-caretaker__info">
+                    <div className="panel-caretaker__name">{c.full_name}</div>
+                    <div className="panel-caretaker__role">Opiekun strategiczny</div>
+                  </div>
+                  <div className="panel-caretaker__actions">
+                    {c.phone && <Btn href={`tel:${c.phone.replace(/\s/g, "")}`} variant="primary" small>Zadzwoń</Btn>}
+                    {c.whatsapp_url && <Btn href={c.whatsapp_url} variant="ghost" small target="_blank" rel="noopener">WhatsApp</Btn>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
-      {show("assets") && <Sec
-        dark
-        wide
-        num="07"
-        title={<>Twoja marka, <Serif>pod ręką.</Serif></>}
-        sub="Logo, paleta kolorów, zdjęcia salonu, materiały marki. Do pobrania. Zawsze aktualne."
-        closing={<>Marka spójna. <Serif>Spójna marka wygrywa.</Serif></>}
-      >
-        <div className="assets">
-          {assets.map((a) => (
-            <Asset
-              key={a.id}
-              iconText={a.icon_text ?? undefined}
-              iconStyle={a.icon_gradient ? { background: a.icon_gradient } : undefined}
-              title={a.title}
-              meta={a.meta ?? ""}
-            />
-          ))}
-        </div>
-      </Sec>}
+        {/* Brand assets */}
+        {show("assets") && assets.length > 0 && (
+          <section className="panel-tile">
+            <div className="panel-tile__head">
+              <h2>Brand assets</h2>
+              <span className="panel-tile__count">{assets.length}</span>
+            </div>
+            <ul className="panel-list">
+              {assets.slice(0, 4).map((a) => (
+                <li key={a.id} className="panel-list__row">
+                  <span className="panel-list__icon">{a.icon_text ?? "🎨"}</span>
+                  <span className="panel-list__title">{a.title}</span>
+                  <span className="pchip pchip--muted">{a.kind}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
-      {show("notifications") && <Sec
-        num="08"
-        title={<>Nic Cię <Serif>nie ominie.</Serif></>}
-        sub="Nowy raport, nowa faktura, nowy materiał do zatwierdzenia — powiadomienie. System pracuje. Ty decydujesz kiedy zajrzeć."
-      >
-        <ul className="notifs">
-          {notifications.map((n) => (
-            <NotifRow
-              key={n.id}
-              isNew={n.is_new}
-              title={n.title}
-              meta={n.meta ?? ""}
-              actionHref={n.action_url ?? "#"}
-            />
-          ))}
-        </ul>
-      </Sec>}
+        {/* Raporty wpisy */}
+        {show("report_entries") && reportEntries.length > 0 && (
+          <section className="panel-tile panel-tile--wide">
+            <div className="panel-tile__head">
+              <h2>Raporty</h2>
+              <span className="panel-tile__count">{reportEntries.length}</span>
+            </div>
+            <ul className="panel-reports">
+              {reportEntries.slice(0, 3).map((r) => (
+                <li key={r.id} className="panel-report">
+                  <div className="panel-report__period">{r.period}</div>
+                  <div className="panel-report__content">{r.content}</div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
-      <ClosingSec
-        lead={
-          <>
-            {global["closing.lead_a"] ?? "Inne salony walczą z chaosem."}
-            <br />
-            <Serif>{global["closing.lead_b"] ?? "Ty masz kogoś, kto go ogarnia."}</Serif>
-          </>
-        }
-        body={global["closing.body"]}
-        tag={
-          <>
-            {(global["closing.tag"] ?? "Ty prowadzisz salon. My prowadzimy resztę.").split(".")[0] + "."}{" "}
-            <Serif>
-              {(global["closing.tag"] ?? "Ty prowadzisz salon. My prowadzimy resztę.")
-                .split(".")
-                .slice(1)
-                .join(".")
-                .trim()}
-            </Serif>
-          </>
-        }
-        ctaIntro={global["closing.cta_intro"]}
-        buttons={
-          <>
-            {caretakers.map((c) => (
-              <Btn
-                key={c.id}
-                href={`tel:${(c.phone ?? "").replace(/\s/g, "")}`}
-                variant="primary"
-              >
-                Zadzwoń do {c.full_name.split(" ")[0]}
-              </Btn>
-            ))}
-          </>
-        }
-      />
-    </>
+        {/* Wyślij pliki — CTA tile */}
+        <section className="panel-tile panel-tile--cta">
+          <div className="panel-tile__head">
+            <h2>Wyślij pliki</h2>
+          </div>
+          <p className="panel-cta__text">Zdjęcia salonu, filmiki, materiały do pracy.</p>
+          <Link href="/panel/upload" className="btn btn--primary btn--small">Otwórz upload →</Link>
+        </section>
+
+        {/* Czat — CTA tile */}
+        <section className="panel-tile panel-tile--cta">
+          <div className="panel-tile__head">
+            <h2>Czat z opiekunami</h2>
+          </div>
+          <p className="panel-cta__text">Bez maili, bez czekania.</p>
+          <Link href="/panel/chat" className="btn btn--primary btn--small">Otwórz czat →</Link>
+        </section>
+      </div>
+    </main>
   );
 }

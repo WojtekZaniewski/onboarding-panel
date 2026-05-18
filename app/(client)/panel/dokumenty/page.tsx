@@ -38,19 +38,11 @@ export default async function DokumentyPage() {
       <PageHero
         eyebrowLabel="Panel klienta"
         eyebrowAccent="Dokumenty"
-        title={<>Twoje dokumenty. <Serif>Jedno miejsce.</Serif></>}
-        sub="Umowa, faktury, załączniki, regulaminy. Nie szukasz. Nie pytasz. Klikasz i pobierasz."
+        title="Dokumenty"
+        sub={`${documents.length} ${documents.length === 1 ? "plik" : documents.length < 5 ? "pliki" : "plików"} w archiwum`}
       />
 
-      <Sec
-        closing={
-          <>
-            Część właścicielek salonów traci godziny na szukanie papierów w skrzynce.
-            <br />
-            <Serif>Ty już nie.</Serif>
-          </>
-        }
-      >
+      <Sec>
         <DocTabs
           tabs={[
             { value: "all", label: "Wszystkie" },
