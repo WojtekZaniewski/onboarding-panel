@@ -30,7 +30,8 @@ function revalidateClient(id: string) {
 
 export type SectionKey =
   | "services" | "documents" | "calendar" | "plan"
-  | "assets" | "reports" | "notifications" | "opiekunowie";
+  | "assets" | "reports" | "notifications" | "opiekunowie"
+  | "report_entries" | "current_work";
 
 export async function setSectionVisible(
   clientId: string,
