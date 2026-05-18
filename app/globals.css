@@ -2284,6 +2284,80 @@ button { font-family: inherit; }
   justify-content: flex-end;
 }
 
+/* ── NEW CLIENT FORM (prosta) ── */
+.new-client-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 520px;
+  padding: 28px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+}
+.new-client-form .admin-field span { font-size: 13px; text-transform: none; letter-spacing: 0; color: rgba(255,255,255,0.7); }
+.admin-field__hint {
+  font-style: normal;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  margin-left: 6px;
+}
+.new-client-form .admin-form__actions { flex-direction: row; gap: 10px; margin-top: 6px; }
+
+/* ── SUCCESS CARD (po utworzeniu klienta) ── */
+.admin-tile--success {
+  background: rgba(74,222,128,0.06);
+  border-color: rgba(74,222,128,0.3);
+}
+.admin-tile--success h2 { color: #4ade80; }
+.admin-success__text {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 12px;
+}
+.admin-success__hint {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.admin-credential {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 20px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+}
+.admin-credential__row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: center;
+  gap: 14px;
+}
+.admin-credential__label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.admin-credential__value {
+  font-family: monospace;
+  font-size: 15px;
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  user-select: all;
+}
+.admin-credential__value--password {
+  color: #ff9854;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 /* ── UPLOAD GRID (admin) ── */
 .upload-grid {
   display: grid;

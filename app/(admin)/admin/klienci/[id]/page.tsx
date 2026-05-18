@@ -55,8 +55,15 @@ function fmtDate(iso: string) {
   return `${String(d.getDate()).padStart(2, "0")} ${PL_MONTHS[d.getMonth()]}`;
 }
 
-export default async function ClientEditor({ params }: { params: Promise<{ id: string }> }) {
+export default async function ClientEditor({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ just_created?: string; email?: string }>;
+}) {
   const { id } = await params;
+  const sp = await searchParams;
   const supabase = await createClient();
 
   const [
@@ -99,6 +106,32 @@ export default async function ClientEditor({ params }: { params: Promise<{ id: s
 
   return (
     <div className="admin-grid">
+      {sp.just_created && (
+        <section className="admin-tile admin-tile--span2 admin-tile--success">
+          <div className="admin-tile__head">
+            <h2>✓ Klient utworzony</h2>
+          </div>
+          <p className="admin-success__text">
+            Przekaż klientce dane logowania (zobaczysz je tylko teraz):
+          </p>
+          <div className="admin-credential">
+            <div className="admin-credential__row">
+              <span className="admin-credential__label">E-mail</span>
+              <code className="admin-credential__value">{sp.email}</code>
+            </div>
+            <div className="admin-credential__row">
+              <span className="admin-credential__label">Hasło</span>
+              <code className="admin-credential__value admin-credential__value--password">
+                {sp.just_created}
+              </code>
+            </div>
+          </div>
+          <p className="admin-success__hint">
+            Po pierwszym zalogowaniu klientka może zmienić hasło. Jeśli stracicie te dane, możesz wygenerować nowe w Supabase Auth.
+          </p>
+        </section>
+      )}
+
       {/* Kafelek: Identyfikacja */}
       <section className="admin-tile admin-tile--span2">
         <div className="admin-tile__head">
