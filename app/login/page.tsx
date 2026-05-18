@@ -1,4 +1,5 @@
 import { Serif } from "@/components/ui/Serif";
+import { SubmitBtn } from "@/components/ui/SubmitBtn";
 import { signInWithPassword } from "./actions";
 
 export default async function LoginPage({
@@ -41,9 +42,9 @@ export default async function LoginPage({
             autoComplete="current-password"
             className="login-form__input"
           />
-          <button type="submit" className="btn btn--primary login-form__submit">
+          <SubmitBtn className="btn btn--primary login-form__submit" pendingLabel="Logowanie…">
             Zaloguj się
-          </button>
+          </SubmitBtn>
         </form>
         <p className="login-card__hint">
           Konta testowe (po seedzie): <code>kontakt@beautyrise.pl</code> /{" "}

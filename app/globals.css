@@ -1,3 +1,67 @@
+/* ── VIEW TRANSITIONS (Apple-style fade + slide) ── */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+::view-transition-old(root) { animation-name: brFadeOut; }
+::view-transition-new(root) { animation-name: brFadeInUp; }
+
+@keyframes brFadeOut {
+  to { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes brFadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* ── SKELETON ── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 0%,
+    rgba(255,255,255,0.09) 50%,
+    rgba(255,255,255,0.04) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: 8px;
+  animation: skelShimmer 1.4s ease-in-out infinite;
+}
+@keyframes skelShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skeleton--title { height: 36px; width: 240px; margin-bottom: 12px; }
+.skeleton--head { height: 22px; width: 60%; margin-bottom: 14px; }
+.skeleton--eyebrow { height: 14px; width: 180px; margin-bottom: 12px; border-radius: 4px; }
+.skeleton--hero-heading { height: 64px; width: 100%; max-width: 680px; margin: 0 auto 20px; border-radius: 12px; }
+.skeleton--sub { height: 18px; width: 70%; max-width: 480px; margin: 0 auto 12px; }
+.skeleton--num { height: 14px; width: 60px; margin-bottom: 8px; }
+.skeleton--pill { height: 36px; width: 140px; border-radius: 999px; }
+
+/* ── SUBMIT BUTTON PENDING ── */
+.is-pending { opacity: 0.7; cursor: wait; }
+.submit-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: -2px;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 

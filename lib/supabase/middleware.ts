@@ -2,8 +2,6 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 const PROTECTED_PREFIXES = ["/panel", "/admin", "/opiekun"];
-const ADMIN_PREFIX = "/admin";
-const OPIEKUN_PREFIX = "/opiekun";
 
 function envConfigured() {
   return (
@@ -12,8 +10,12 @@ function envConfigured() {
   );
 }
 
+/**
+ * Minimalny middleware: tylko refresh JWT (1 lokalny call) i guard na
+ * chronionych route'ach gdy brak sesji. Role-based redirect zostawiamy
+ * layoutom (cached przez React.cache()) — to oszczędza ~100ms per nav.
+ */
 export async function updateSession(request: NextRequest) {
-  // Tryb podglądu — bez Supabase wszystko działa jako gość, brak guardów.
   if (!envConfigured()) {
     return NextResponse.next({ request });
   }
@@ -41,9 +43,9 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Konieczne dla refresh tokena. supabase-js robi to lokalnie (decode JWT) jeśli ważny,
+  // remote call tylko gdy expiry blisko. ~10-50ms typowo.
+  const { data: { user } } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
   const isProtected = PROTECTED_PREFIXES.some((p) => path.startsWith(p));
@@ -53,32 +55,6 @@ export async function updateSession(request: NextRequest) {
     url.pathname = "/login";
     url.searchParams.set("next", path);
     return NextResponse.redirect(url);
-  }
-
-  if (user && isProtected) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .maybeSingle();
-    const role: "admin" | "opiekun" | "klient" =
-      (profile?.role as "admin" | "opiekun" | "klient") ?? "klient";
-
-    let denied = false;
-    if (path.startsWith(ADMIN_PREFIX) && role !== "admin") denied = true;
-    if (
-      path.startsWith(OPIEKUN_PREFIX) &&
-      role !== "opiekun" &&
-      role !== "admin"
-    )
-      denied = true;
-
-    if (denied) {
-      const url = request.nextUrl.clone();
-      url.pathname =
-        role === "admin" ? "/admin" : role === "opiekun" ? "/opiekun" : "/panel";
-      return NextResponse.redirect(url);
-    }
   }
 
   return supabaseResponse;

@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getPreviewClientId } from "@/lib/preview";
 import { exitPreview } from "@/app/(admin)/admin/preview/actions";
+import { getCurrentProfile, getCurrentUser } from "@/lib/auth";
 
 const BASE_LINKS = [
   { href: "/panel", label: "Pulpit" },
@@ -21,16 +22,10 @@ export default async function ClientLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role, full_name, initials")
-    .eq("id", user.id)
-    .maybeSingle();
-
+  const profile = await getCurrentProfile();
   if (!profile) redirect("/login");
 
   const previewId = await getPreviewClientId();
@@ -51,6 +46,7 @@ export default async function ClientLayout({
       .maybeSingle();
     client = data;
   } else {
+    const supabase = await createClient();
     const { data } = await supabase
       .from("clients")
       .select("id, display_short, avatar_initials, salon_name")
