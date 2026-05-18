@@ -50,7 +50,7 @@ export default async function KontaktPage() {
               key={c.id}
               data={{
                 fullName: c.full_name,
-                initials: c.initials ?? c.full_name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase(),
+                initials: c.initials ?? c.full_name.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase(),
                 role: "Opiekun strategiczny · BeautyRise",
                 phone: c.phone ?? "",
                 email: c.email ?? "",
