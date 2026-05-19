@@ -379,7 +379,7 @@ export default async function ClientEditor({
       <section className="admin-tile admin-tile--span2">
         <div className="admin-tile__head">
           <h2>Plan 30 / 90</h2>
-          <span className="admin-tile__hint">{plan.length} milestone'ów</span>
+          <span className="admin-tile__hint">{plan.length} milestone&apos;ów</span>
         </div>
         <div className="admin-toggle-list">
           {plan.map((m) => (
@@ -400,7 +400,7 @@ export default async function ClientEditor({
           ))}
           {plan.length === 0 && (
             <p className="admin-empty">
-              Brak milestone'ów (utwórz nowego klienta z seedem domyślnym lub dodaj ręcznie w SQL).
+              Brak milestone&apos;ów (utwórz nowego klienta z seedem domyślnym lub dodaj ręcznie w SQL).
             </p>
           )}
         </div>

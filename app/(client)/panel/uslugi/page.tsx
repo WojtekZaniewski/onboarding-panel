@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { PageHero } from "@/components/ui/PageHero";
 import { Sec } from "@/components/ui/Sec";
-import { Serif } from "@/components/ui/Serif";
 import { ServiceCard, type ServiceStatus } from "@/components/client/ServiceCard";
 import { Principle } from "@/components/client/Principle";
 import { getCurrentClientForUser } from "@/lib/db/panel";

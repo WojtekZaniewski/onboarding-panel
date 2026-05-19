@@ -39,7 +39,7 @@ export default async function NewClientPage({
         </label>
 
         <label className="admin-field">
-          <span>Imię w wołaczu <em className="admin-field__hint">(opcjonalne, np. „Anno")</em></span>
+          <span>Imię w wołaczu <em className="admin-field__hint">(opcjonalne, np. „Anno”)</em></span>
           <input name="display_first_name" placeholder="zostaw puste — użyjemy imienia" />
         </label>
 

@@ -15,10 +15,10 @@ export default async function ClientChatAdmin({ params }: { params: Promise<{ id
     .maybeSingle();
 
   if (!thread) {
-    const { data: created } = await supabase.from("chat_threads").insert({ client_id: id }).select("id").single();
-    thread = created!;
+    const { data: created, error: insertErr } = await supabase.from("chat_threads").insert({ client_id: id }).select("id").single();
+    if (insertErr || !created) notFound();
+    thread = created;
   }
-  if (!thread) notFound();
 
   const { data: messages } = await supabase
     .from("chat_messages")

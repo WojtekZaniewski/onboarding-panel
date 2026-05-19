@@ -18,10 +18,10 @@ export default async function OpiekunChat({ params }: { params: Promise<{ client
 
   let { data: thread } = await supabase.from("chat_threads").select("id").eq("client_id", clientId).maybeSingle();
   if (!thread) {
-    const { data: created } = await supabase.from("chat_threads").insert({ client_id: clientId }).select("id").single();
-    thread = created!;
+    const { data: created, error: insertErr } = await supabase.from("chat_threads").insert({ client_id: clientId }).select("id").single();
+    if (insertErr || !created) notFound();
+    thread = created;
   }
-  if (!thread) notFound();
 
   const { data: messages } = await supabase
     .from("chat_messages")

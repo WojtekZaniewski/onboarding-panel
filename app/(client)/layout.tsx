@@ -77,7 +77,7 @@ export default async function ClientLayout({
       />
       {children}
       <Footer
-        quote={<Serif>„Ty prowadzisz salon. My prowadzimy resztę."</Serif>}
+        quote={<Serif>„Ty prowadzisz salon. My prowadzimy resztę.”</Serif>}
       />
     </>
   );

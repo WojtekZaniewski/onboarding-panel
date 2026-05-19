@@ -26,7 +26,7 @@ export default async function UploadsAdmin({ params }: { params: Promise<{ id: s
   return (
     <section className="admin-form-section">
       <h2>Uploady od klienta ({uploads.length})</h2>
-      <p className="admin-hint">Zdjęcia, filmiki, pliki przysyłane przez klienta. Klikaj „Otwórz" żeby pobrać/zobaczyć.</p>
+      <p className="admin-hint">Zdjęcia, filmiki, pliki przysyłane przez klienta. Klikaj „Otwórz” żeby pobrać/zobaczyć.</p>
       {uploads.length === 0 ? (
         <p className="admin-hint">Brak uploadów. Klient nic jeszcze nie wysłał.</p>
       ) : (

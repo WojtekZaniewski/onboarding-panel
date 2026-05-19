@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { PageHero } from "@/components/ui/PageHero";
 import { Sec } from "@/components/ui/Sec";
-import { Serif } from "@/components/ui/Serif";
 import { CareCard } from "@/components/client/CareCard";
 import { Step } from "@/components/client/Step";
 import { getCurrentClientForUser } from "@/lib/db/panel";
@@ -48,7 +47,7 @@ export default async function KontaktPage() {
               key={c.id}
               data={{
                 fullName: c.full_name,
-                initials: c.initials ?? c.full_name.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase(),
+                initials: c.initials ?? (c.full_name ?? "").split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase(),
                 role: "Opiekun strategiczny · BeautyRise",
                 phone: c.phone ?? "",
                 email: c.email ?? "",

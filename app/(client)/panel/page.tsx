@@ -63,7 +63,7 @@ export default async function PanelHome() {
       <header className="panel-top">
         <div>
           <div className="panel-top__eyebrow">{data.client.salon_name}</div>
-          <h1 className="panel-top__title">Cześć {data.client.display_first_name.replace(/\.$/, "")}</h1>
+          <h1 className="panel-top__title">Cześć {(data.client.display_first_name ?? "").replace(/\.$/, "")}</h1>
         </div>
         {statusPills.length > 0 && (
           <div className="status-pills">
